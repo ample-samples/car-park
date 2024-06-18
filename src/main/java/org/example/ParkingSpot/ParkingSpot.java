@@ -4,11 +4,15 @@ import org.example.Vehicle.VehicleType;
 
 import java.util.Optional;
 
-public interface ParkingSpot {
-    boolean filled = false;
-    Optional<VehicleType> vehicleType = null;
+public class ParkingSpot {
+    private boolean filled = false;
+    private Optional<VehicleType> vehicleType = null;
 
-    public VehicleType removeVehicle();
+    public VehicleType removeVehicle() {
+        return null;
+    }
 
-    public void fillSpot();
+    public void fillSpot(VehicleType vehicleType) {
+        this.vehicleType = Optional.of(vehicleType);
+    }
 }
