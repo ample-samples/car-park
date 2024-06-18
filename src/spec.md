@@ -12,6 +12,8 @@ Design a parking lot using object-oriented principles... Your solution should be
 - A car can park in a single compact spot, or a regular spot
 - A van can park, but it will take up 3 regular spots
 - These are just a few assumptions. Feel free to ask your interviewer about more assumptions as needed
+- Vans cannot park across any number of compact spaces
+- A van takes up 1 large spot
 
 ### Specifications
 
@@ -23,3 +25,14 @@ Here are a few methods that you should be able to run:
 - Tell us when the parking lot is empty
 - Tell us when certain spots are full e.g. when all motorcycle spots are taken
 - Tell us how many spots vans are taking up
+
+### Plan
+
+#### Structure
+- Parking lot class which contains a list of parking spots and contains all methods detailed above
+- Parking spot interface
+  - Parking spot classes: motorcycle, compact, regular, large
+- Vehicle interface
+  - Vehicle classes: motorcycle, car, van
+
+#### Functionality
