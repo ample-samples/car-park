@@ -4,6 +4,8 @@ import org.example.ParkingSpot.ParkingSpot;
 import org.example.ParkingSpot.ParkingSpotType;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,17 +25,25 @@ public class Main {
         for (int i = 0; i < parkingSpotAmounts.length; i++) {
             for (int j = 0; j < parkingSpotAmounts[i]; j++) {
                 switch (i) {
-                    case(0):
+                    case (0):
                         parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.MOTORCYCLE, spotCounter));
-                    case(1):
+                        break;
+                    case (1):
                         parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.COMPACT, spotCounter));
-                    case(2):
+                        break;
+                    case (2):
                         parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.REGULAR, spotCounter));
-                    case(3):
+                        break;
+                    case (3):
                         parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.LARGE, spotCounter));
+                        break;
                 }
                 spotCounter++;
             }
+        }
+
+        for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
+            System.out.println(entry.getValue());
         }
     }
 }
