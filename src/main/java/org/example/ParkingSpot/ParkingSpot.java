@@ -32,4 +32,14 @@ public class ParkingSpot {
         this.vehicleType = Optional.of(vehicleType);
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ParkingSpot{" +
+                "filled=" + filled +
+                ", vehicleType=" + vehicleType +
+                ", spotNumber=" + spotNumber +
+                ", parkingSpotType=" + parkingSpotType +
+                '}';
+    }
 }
