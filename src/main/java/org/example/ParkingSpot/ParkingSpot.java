@@ -7,12 +7,30 @@ import java.util.Optional;
 public class ParkingSpot {
     private boolean filled = false;
     private Optional<VehicleType> vehicleType = null;
+
     final int spotNumber;
-    final ParkingSpotType parkingSpotType;
+    public final ParkingSpotType parkingSpotType;
+
+    public int getSpotNumber() {
+        return spotNumber;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType.get();
+    }
+
+    public void setVehicleType(Optional<VehicleType> vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
 
     public ParkingSpot(ParkingSpotType parkingSpotType, int spotNumber) {
         this.spotNumber = spotNumber;
         this.parkingSpotType = parkingSpotType;
+    }
+
+    public boolean isFilled() {
+        return filled;
     }
 
     public Optional<VehicleType> emptySpot() {
@@ -25,21 +43,39 @@ public class ParkingSpot {
 
     public boolean fillSpot(VehicleType vehicleType) {
         // check if spot is full
-        if (filled) {
+        if (this.filled) {
             return false;
         }
-
-        this.vehicleType = Optional.of(vehicleType);
-        return true;
+        switch (vehicleType) {
+            case MOTORCYCLE:
+                this.vehicleType = Optional.of(vehicleType);
+                this.filled = true;
+                return true;
+            case CAR:
+                if (this.parkingSpotType != ParkingSpotType.MOTORCYCLE) {
+                    this.vehicleType = Optional.of(vehicleType);
+                    this.filled = true;
+                    return true;
+                }
+                break;
+            case VAN:
+                if (this.parkingSpotType == ParkingSpotType.LARGE) {
+                    this.vehicleType = Optional.of(vehicleType);
+                    this.filled = true;
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        return "ParkingSpot{" +
+        return "ParkingSpot{ " +
                 "filled=" + filled +
                 ", vehicleType=" + vehicleType +
                 ", spotNumber=" + spotNumber +
                 ", parkingSpotType=" + parkingSpotType +
-                '}';
+                " }";
     }
 }
