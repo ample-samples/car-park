@@ -1,13 +1,7 @@
 package org.example;
 
 import org.example.ParkingLot.ParkingLot;
-import org.example.ParkingSpot.ParkingSpot;
-import org.example.ParkingSpot.ParkingSpotType;
 import org.example.Vehicle.VehicleType;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
