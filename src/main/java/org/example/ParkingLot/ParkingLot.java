@@ -6,6 +6,7 @@ import org.example.Vehicle.VehicleType;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class ParkingLot {
     final private int[] motorcycleSpots;
@@ -93,6 +94,16 @@ public class ParkingLot {
         }
         System.out.println("There are no more " + vehicleType.toString().toLowerCase() + " spots left" );
         return false;
+    }
+
+    // TODO: implement
+    public Optional<VehicleType> emptySpot(int spotNumber) {
+        return null;
+    }
+
+    // TODO: implement
+    public Optional<VehicleType> emptySpot(VehicleType vehicleType) {
+        return null;
     }
 
     @Override

@@ -16,6 +16,5 @@ public class Main {
         for (int i = 0; i < 7; i++) parkingLot.fillSpot(VehicleType.MOTORCYCLE);
         for (int i = 0; i < 5; i++) parkingLot.fillSpot(VehicleType.CAR);
         System.out.println(parkingLot);
-
     }
 }
