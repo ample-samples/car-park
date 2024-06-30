@@ -15,6 +15,11 @@ public class Main {
         for (int i = 0; i < 5; i++) parkingLot.fillSpot(VehicleType.VAN);
         for (int i = 0; i < 7; i++) parkingLot.fillSpot(VehicleType.MOTORCYCLE);
         for (int i = 0; i < 5; i++) parkingLot.fillSpot(VehicleType.CAR);
+
+        parkingLot.emptySpot(4);
+        parkingLot.emptySpot(1);
+        parkingLot.emptySpot(2);
+        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
         System.out.println(parkingLot);
     }
 }

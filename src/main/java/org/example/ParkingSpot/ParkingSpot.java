@@ -38,6 +38,7 @@ public class ParkingSpot {
 
         Optional<VehicleType> leavingVehicle = vehicleType;
         vehicleType = null;
+        this.filled = false;
         return leavingVehicle;
     }
 

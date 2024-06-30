@@ -98,6 +98,27 @@ public class ParkingLot {
 
     // TODO: implement
     public Optional<VehicleType> emptySpot(int spotNumber) {
+        ParkingSpot parkingSpot = parkingLot.get(spotNumber);
+        VehicleType vehicleType = parkingSpot.getVehicleType();
+        ParkingSpotType parkingSpotType = parkingSpot.parkingSpotType;
+        if (vehicleType != null) {
+            parkingSpot.emptySpot();
+            switch (parkingSpotType) {
+                case MOTORCYCLE:
+                    motorcycleSpots[0]--;
+                    break;
+                case COMPACT:
+                    compactSpots[0]--;
+                    break;
+                case REGULAR:
+                    regularSpots[0]--;
+                    break;
+                case LARGE:
+                    largeSpots[0]--;
+                    break;
+            }
+            return Optional.of(vehicleType);
+        }
         return null;
     }
 
