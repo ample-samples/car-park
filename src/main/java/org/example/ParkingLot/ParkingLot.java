@@ -100,51 +100,22 @@ public class ParkingLot {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(Arrays.toString(this.motorcycleSpots) + "\n");
-        stringBuilder.append(Arrays.toString(this.compactSpots) + "\n");
-        stringBuilder.append(Arrays.toString(this.regularSpots) + "\n");
-        stringBuilder.append(Arrays.toString(this.largeSpots) + "\n");
+
+        stringBuilder.append("Motorcycle spots: " + this.motorcycleSpots[0] + " occupied, " + this.motorcycleSpots[1] + " total\n");
+        stringBuilder.append("Compact spots: " + this.compactSpots[0] + " occupied, " + this.compactSpots[1] + " total\n");
+        stringBuilder.append("Regular spots: " + this.regularSpots[0] + " occupied, " + this.regularSpots[1] + " total\n");
+        stringBuilder.append("Large spots: " + this.largeSpots[0] + " occupied, " + this.largeSpots[1] + " total\n");
+        stringBuilder.append("\n");
+
         for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
             ParkingSpot parkingSpot = entry.getValue();
-            stringBuilder.append(parkingSpot.toString() + "\n");
-//            if (!parkingSpot.isFilled()) {
-//                stringBuilder.append(parkingSpot.parkingSpotType + ": Empty\n");
-//            } else {
-//                stringBuilder.append(parkingSpot.parkingSpotType.toString() + ": " + parkingSpot.getVehicleType() + "\n");
-//            };
+//            stringBuilder.append(parkingSpot.toString() + "\n");
+            if (!parkingSpot.isFilled()) {
+                stringBuilder.append(parkingSpot.parkingSpotType + ": Empty\n");
+            } else {
+                stringBuilder.append(parkingSpot.parkingSpotType.toString() + ": " + parkingSpot.getVehicleType() + "\n");
+            };
         }
         return stringBuilder.toString();
     }
-
-
-//    int[] parkingSpotAmounts = new int[]{};
-//
-//    int spotCounter = 1;
-//        for( int i = 0; i<parkingSpotAmounts.length;i++) {
-//        for (int j = 0; j < parkingSpotAmounts[i]; j++) {
-//            switch (i) {
-//                case (0):
-//                    parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.MOTORCYCLE, spotCounter));
-//                    break;
-//                case (1):
-//                    parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.COMPACT, spotCounter));
-//                    break;
-//                case (2):
-//                    parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.REGULAR, spotCounter));
-//                    break;
-//                case (3):
-//                    parkingLot.put(spotCounter, new ParkingSpot(ParkingSpotType.LARGE, spotCounter));
-//                    break;
-//            }
-//            spotCounter++;
-//        }
-//    }
-//
-//        for(Map.Entry<Integer, ParkingSpot> entry :parkingLot.entrySet()) {
-//
-//    }
-//
-//    {
-//        System.out.println(entry.getValue());
-//    }
 }
