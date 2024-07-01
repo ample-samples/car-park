@@ -53,7 +53,7 @@ public class ParkingLot {
                         if (entry.getValue().fillSpot(VehicleType.MOTORCYCLE)) {
                             motorcycleSpots[0]++;
                             return true;
-                        };
+                        }
                     }
                 }
                 break;
@@ -62,19 +62,21 @@ public class ParkingLot {
                 if (regularSpots[0] < regularSpots[1]) {
                     for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
                         if (!entry.getValue().isFilled()) {
+                            // TODO: -> ParkingLot.decrementParkingSpotCount()
                             if (entry.getValue().parkingSpotType == ParkingSpotType.REGULAR && entry.getValue().fillSpot(VehicleType.CAR)) {
                                 regularSpots[0]++;
                                 return true;
-                            };
+                            }
                         }
                     }
                 } else if (compactSpots[0] < compactSpots[1]) {
                     for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
                         if (!entry.getValue().isFilled()) {
+                            // TODO: -> ParkingLot.decrementParkingSpotCount()
                             if (entry.getValue().parkingSpotType == ParkingSpotType.COMPACT && entry.getValue().fillSpot(VehicleType.CAR)) {
                                 compactSpots[0]++;
                                 return true;
-                            };
+                            }
                         }
                     }
                 }
@@ -87,7 +89,7 @@ public class ParkingLot {
                         if (entry.getValue().fillSpot(VehicleType.VAN)) {
                             largeSpots[0]++;
                             return true;
-                        };
+                        }
                     }
                 }
                 break;
@@ -142,6 +144,7 @@ public class ParkingLot {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
+        stringBuilder.append("\n");
         stringBuilder.append("Motorcycle spots: " + this.motorcycleSpots[0] + " occupied, " + this.motorcycleSpots[1] + " total\n");
         stringBuilder.append("Compact spots: " + this.compactSpots[0] + " occupied, " + this.compactSpots[1] + " total\n");
         stringBuilder.append("Regular spots: " + this.regularSpots[0] + " occupied, " + this.regularSpots[1] + " total\n");
