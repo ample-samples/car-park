@@ -108,7 +108,6 @@ public class ParkingLot {
         return null;
     }
 
-    // TODO: implement
     public Optional<VehicleType> emptySpot(VehicleType vehicleType) {
         for (int i = 1; i < parkingLot.size(); i++) {
             ParkingSpot parkingSpot = parkingLot.get(i);
