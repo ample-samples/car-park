@@ -1,5 +1,5 @@
 package org.example.UserInput;
 
-public enum InputChoices {
+public enum InputChoicesType {
     FillSpot, EmptySpotBySpotNumber, EmptySpotByVehicleType
 }

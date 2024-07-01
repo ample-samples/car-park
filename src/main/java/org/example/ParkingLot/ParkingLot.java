@@ -82,6 +82,7 @@ public class ParkingLot {
                 }
                 break;
             case VAN:
+                // TODO: Implement vans filling 3 empty regular spots
                 if (largeSpots[0] >= largeSpots[1]) break;
 
                 for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
