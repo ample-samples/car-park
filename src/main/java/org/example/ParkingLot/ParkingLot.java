@@ -96,27 +96,13 @@ public class ParkingLot {
         return false;
     }
 
-    // TODO: implement
     public Optional<VehicleType> emptySpot(int spotNumber) {
         ParkingSpot parkingSpot = parkingLot.get(spotNumber);
         VehicleType vehicleType = parkingSpot.getVehicleType();
         ParkingSpotType parkingSpotType = parkingSpot.parkingSpotType;
         if (vehicleType != null) {
             parkingSpot.emptySpot();
-            switch (parkingSpotType) {
-                case MOTORCYCLE:
-                    motorcycleSpots[0]--;
-                    break;
-                case COMPACT:
-                    compactSpots[0]--;
-                    break;
-                case REGULAR:
-                    regularSpots[0]--;
-                    break;
-                case LARGE:
-                    largeSpots[0]--;
-                    break;
-            }
+            decrementParkingSpotCount(parkingSpotType);
             return Optional.of(vehicleType);
         }
         return null;
@@ -124,7 +110,33 @@ public class ParkingLot {
 
     // TODO: implement
     public Optional<VehicleType> emptySpot(VehicleType vehicleType) {
+        for (int i = 1; i < parkingLot.size(); i++) {
+            ParkingSpot parkingSpot = parkingLot.get(i);
+            if (parkingSpot.isFilled() && parkingSpot.getVehicleType() == vehicleType) {
+                parkingSpot.emptySpot();
+                decrementParkingSpotCount(parkingSpot.parkingSpotType);
+                return Optional.of(vehicleType);
+            }
+        }
+
         return null;
+    }
+
+    private void decrementParkingSpotCount(ParkingSpotType parkingSpotType) {
+        switch (parkingSpotType) {
+            case MOTORCYCLE:
+                motorcycleSpots[0]--;
+                break;
+            case COMPACT:
+                compactSpots[0]--;
+                break;
+            case REGULAR:
+                regularSpots[0]--;
+                break;
+            case LARGE:
+                largeSpots[0]--;
+                break;
+        }
     }
 
     @Override
@@ -140,6 +152,7 @@ public class ParkingLot {
         for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
             ParkingSpot parkingSpot = entry.getValue();
 //            stringBuilder.append(parkingSpot.toString() + "\n");
+            stringBuilder.append(String.format("[%d] ", parkingSpot.getSpotNumber()));
             if (!parkingSpot.isFilled()) {
                 stringBuilder.append(parkingSpot.parkingSpotType + ": Empty\n");
             } else {

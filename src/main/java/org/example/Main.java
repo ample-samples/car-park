@@ -19,6 +19,11 @@ public class Main {
         parkingLot.emptySpot(4);
         parkingLot.emptySpot(1);
         parkingLot.emptySpot(2);
+        parkingLot.emptySpot(38);
+        parkingLot.emptySpot(VehicleType.VAN);
+        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
+        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
+        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
         parkingLot.fillSpot(VehicleType.MOTORCYCLE);
         System.out.println(parkingLot);
     }
