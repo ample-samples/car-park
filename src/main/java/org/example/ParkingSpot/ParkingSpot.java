@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class ParkingSpot {
     private boolean filled = false;
-    private Optional<VehicleType> vehicleType = null;
+    private VehicleType vehicleType = VehicleType.EMPTY;
 
     final int spotNumber;
     public final ParkingSpotType parkingSpotType;
@@ -16,10 +16,10 @@ public class ParkingSpot {
     }
 
     public VehicleType getVehicleType() {
-        return vehicleType.get();
+        return vehicleType;
     }
 
-    public void setVehicleType(Optional<VehicleType> vehicleType) {
+    public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
     }
 
@@ -33,35 +33,34 @@ public class ParkingSpot {
         return filled;
     }
 
-    public Optional<VehicleType> emptySpot() {
-        if (vehicleType.isEmpty()) return null;
+    public VehicleType emptySpot() {
+        if (vehicleType == VehicleType.EMPTY) return VehicleType.EMPTY;
 
-        Optional<VehicleType> leavingVehicle = vehicleType;
-        vehicleType = null;
+        VehicleType leavingVehicle = vehicleType;
+        vehicleType = VehicleType.EMPTY;
         this.filled = false;
         return leavingVehicle;
     }
 
     public boolean fillSpot(VehicleType vehicleType) {
-        // check if spot is full
         if (this.filled) {
             return false;
         }
         switch (vehicleType) {
             case MOTORCYCLE:
-                this.vehicleType = Optional.of(vehicleType);
+                this.vehicleType = vehicleType;
                 this.filled = true;
                 return true;
             case CAR:
                 if (this.parkingSpotType != ParkingSpotType.MOTORCYCLE) {
-                    this.vehicleType = Optional.of(vehicleType);
+                    this.vehicleType = vehicleType;
                     this.filled = true;
                     return true;
                 }
                 break;
             case VAN:
-                if (this.parkingSpotType == ParkingSpotType.LARGE) {
-                    this.vehicleType = Optional.of(vehicleType);
+                if (this.parkingSpotType == ParkingSpotType.LARGE || this.parkingSpotType == ParkingSpotType.REGULAR) {
+                    this.vehicleType = (vehicleType);
                     this.filled = true;
                     return true;
                 }

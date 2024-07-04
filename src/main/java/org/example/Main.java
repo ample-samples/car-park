@@ -7,24 +7,18 @@ public class Main {
     public static void main(String[] args) {
         int motorcycleSpots = 5;
         int compactSpots = 10;
-        int regularSpots = 20;
+        int regularSpots = 7;
         int largeSpots = 5;
         int totalSpots = motorcycleSpots + compactSpots + regularSpots + largeSpots;
 
         ParkingLot parkingLot = new ParkingLot(motorcycleSpots, compactSpots, regularSpots, largeSpots);
-        for (int i = 0; i < 5; i++) parkingLot.fillSpot(VehicleType.VAN);
-        for (int i = 0; i < 7; i++) parkingLot.fillSpot(VehicleType.MOTORCYCLE);
-        for (int i = 0; i < 5; i++) parkingLot.fillSpot(VehicleType.CAR);
+//        for (int i = 0; i < 7; i++) parkingLot.fillSpot(VehicleType.MOTORCYCLE);
+//        for (int i = 0; i < 5; i++) parkingLot.fillSpot(VehicleType.CAR);
+        for (int i = 0; i < 80; i++) parkingLot.fillSpot(VehicleType.VAN);
 
         parkingLot.emptySpot(4);
         parkingLot.emptySpot(1);
         parkingLot.emptySpot(2);
-        parkingLot.emptySpot(38);
-        parkingLot.emptySpot(VehicleType.VAN);
-        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
-        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
-        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
-        parkingLot.fillSpot(VehicleType.MOTORCYCLE);
         System.out.println(parkingLot);
     }
 }

@@ -4,9 +4,8 @@ import org.example.ParkingSpot.ParkingSpot;
 import org.example.ParkingSpot.ParkingSpotType;
 import org.example.Vehicle.VehicleType;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ParkingLot {
     final private int[] motorcycleSpots;
@@ -82,42 +81,62 @@ public class ParkingLot {
                 }
                 break;
             case VAN:
-                // TODO: Implement vans filling 3 empty regular spots
-                if (largeSpots[0] >= largeSpots[1]) break;
-
-                for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
-                    if (!entry.getValue().isFilled()) {
-                        if (entry.getValue().fillSpot(VehicleType.VAN)) {
+                if (largeSpots[0] < largeSpots[1]) {
+                    for (Map.Entry<Integer, ParkingSpot> entry : parkingLot.entrySet()) {
+                        ParkingSpot parkingSpot = entry.getValue();
+                        if (!parkingSpot.isFilled() && parkingSpot.parkingSpotType == ParkingSpotType.LARGE && parkingSpot.fillSpot(VehicleType.VAN)) {
                             largeSpots[0]++;
                             return true;
                         }
                     }
+                    break;
+                } else if (regularSpots[0] <= regularSpots[1] - 3) {
+                    int consecutiveRegularSpots = 0;
+                    // This funky code will return a ListIterator, allowing reversed traversal of the parkingSpots iterator
+                    ListIterator<Map.Entry<Integer, ParkingSpot>> parkingSpots = parkingLot.entrySet().stream().collect(Collectors.toList()).listIterator();
+                    for (int i = 1; parkingSpots.hasNext(); i++, parkingSpots.next()) {
+                        ParkingSpot parkingSpot = parkingLot.get(i);
+                        if (!parkingSpot.isFilled() && parkingSpot.parkingSpotType == ParkingSpotType.REGULAR) {
+                            consecutiveRegularSpots++;
+                        } else {
+                            consecutiveRegularSpots = 0;
+                        }
+                        if (consecutiveRegularSpots == 3) {
+                            // 3 spots in a row have been found, the parkingSpots iterator should point to the last spot of the 3???
+                            // fill current pS, iterate in reverse to fill the previous 2 spots
+                            System.out.println(parkingSpot);
+                            parkingLot.get(i).fillSpot(VehicleType.VAN);
+                            parkingLot.get(i - 1).fillSpot(VehicleType.VAN);
+                            parkingLot.get(i - 2).fillSpot(VehicleType.VAN);
+                            regularSpots[0] += 3;
+                            break;
+                        }
+                    }
                 }
-                break;
         }
-        System.out.println("There are no more " + vehicleType.toString().toLowerCase() + " spots left" );
+        System.out.println("There are no more " + vehicleType.toString().toLowerCase() + " spots left");
         return false;
     }
 
-    public Optional<VehicleType> emptySpot(int spotNumber) {
+    public VehicleType emptySpot(int spotNumber) {
         ParkingSpot parkingSpot = parkingLot.get(spotNumber);
         VehicleType vehicleType = parkingSpot.getVehicleType();
         ParkingSpotType parkingSpotType = parkingSpot.parkingSpotType;
-        if (vehicleType != null) {
+        if (vehicleType != VehicleType.EMPTY) {
             parkingSpot.emptySpot();
             decrementParkingSpotCount(parkingSpotType);
-            return Optional.of(vehicleType);
+            return vehicleType;
         }
         return null;
     }
 
-    public Optional<VehicleType> emptySpot(VehicleType vehicleType) {
+    public VehicleType emptySpot(VehicleType vehicleType) {
         for (int i = 1; i < parkingLot.size(); i++) {
             ParkingSpot parkingSpot = parkingLot.get(i);
             if (parkingSpot.isFilled() && parkingSpot.getVehicleType() == vehicleType) {
                 parkingSpot.emptySpot();
                 decrementParkingSpotCount(parkingSpot.parkingSpotType);
-                return Optional.of(vehicleType);
+                return vehicleType;
             }
         }
 
@@ -160,7 +179,8 @@ public class ParkingLot {
                 stringBuilder.append(parkingSpot.parkingSpotType + ": Empty\n");
             } else {
                 stringBuilder.append(parkingSpot.parkingSpotType.toString() + ": " + parkingSpot.getVehicleType() + "\n");
-            };
+            }
+            ;
         }
         return stringBuilder.toString();
     }
