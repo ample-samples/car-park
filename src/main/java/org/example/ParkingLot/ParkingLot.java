@@ -92,8 +92,7 @@ public class ParkingLot {
                     break;
                 } else if (regularSpots[0] <= regularSpots[1] - 3) {
                     int consecutiveRegularSpots = 0;
-                    // This funky code will return a ListIterator, allowing reversed traversal of the parkingSpots iterator
-                    ListIterator<Map.Entry<Integer, ParkingSpot>> parkingSpots = parkingLot.entrySet().stream().collect(Collectors.toList()).listIterator();
+                    Iterator<Map.Entry<Integer, ParkingSpot>> parkingSpots = parkingLot.entrySet().iterator();
                     for (int i = 1; parkingSpots.hasNext(); i++, parkingSpots.next()) {
                         ParkingSpot parkingSpot = parkingLot.get(i);
                         if (!parkingSpot.isFilled() && parkingSpot.parkingSpotType == ParkingSpotType.REGULAR) {
@@ -102,9 +101,6 @@ public class ParkingLot {
                             consecutiveRegularSpots = 0;
                         }
                         if (consecutiveRegularSpots == 3) {
-                            // 3 spots in a row have been found, the parkingSpots iterator should point to the last spot of the 3???
-                            // fill current pS, iterate in reverse to fill the previous 2 spots
-                            System.out.println(parkingSpot);
                             parkingLot.get(i).fillSpot(VehicleType.VAN);
                             parkingLot.get(i - 1).fillSpot(VehicleType.VAN);
                             parkingLot.get(i - 2).fillSpot(VehicleType.VAN);
