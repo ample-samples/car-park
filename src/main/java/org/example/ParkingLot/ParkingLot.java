@@ -92,8 +92,7 @@ public class ParkingLot {
                     break;
                 } else if (regularSpots[0] <= regularSpots[1] - 3) {
                     int consecutiveRegularSpots = 0;
-                    Iterator<Map.Entry<Integer, ParkingSpot>> parkingSpots = parkingLot.entrySet().iterator();
-                    for (int i = 1; parkingSpots.hasNext(); i++, parkingSpots.next()) {
+                    for (int i = 1; i < parkingLot.size(); i++) {
                         ParkingSpot parkingSpot = parkingLot.get(i);
                         if (!parkingSpot.isFilled() && parkingSpot.parkingSpotType == ParkingSpotType.REGULAR) {
                             consecutiveRegularSpots++;
@@ -104,7 +103,6 @@ public class ParkingLot {
                             parkingLot.get(i).fillSpot(VehicleType.VAN);
                             parkingLot.get(i - 1).fillSpot(VehicleType.VAN);
                             parkingLot.get(i - 2).fillSpot(VehicleType.VAN);
-                            regularSpots[0] += 3;
                             break;
                         }
                     }
@@ -127,12 +125,41 @@ public class ParkingLot {
     }
 
     public VehicleType emptySpot(VehicleType vehicleType) {
-        for (int i = 1; i < parkingLot.size(); i++) {
-            ParkingSpot parkingSpot = parkingLot.get(i);
-            if (parkingSpot.isFilled() && parkingSpot.getVehicleType() == vehicleType) {
-                parkingSpot.emptySpot();
-                decrementParkingSpotCount(parkingSpot.parkingSpotType);
-                return vehicleType;
+        if (vehicleType != VehicleType.VAN) {
+            for (int i = 1; i <= parkingLot.size(); i++) {
+                ParkingSpot parkingSpot = parkingLot.get(i);
+                if (parkingSpot.isFilled() && parkingSpot.getVehicleType() == vehicleType) {
+                    parkingSpot.emptySpot();
+                    decrementParkingSpotCount(parkingSpot.parkingSpotType);
+                    return vehicleType;
+                }
+            }
+        } else {
+            // First, check for vans in LARGE spots
+            for (int i = 1; i <= parkingLot.size(); i++) {
+                ParkingSpot parkingSpot = parkingLot.get(i);
+                if (parkingSpot.isFilled() && parkingSpot.parkingSpotType == ParkingSpotType.LARGE && parkingSpot.getVehicleType() == vehicleType) {
+                    parkingSpot.emptySpot();
+                    decrementParkingSpotCount(parkingSpot.parkingSpotType);
+                    return vehicleType;
+                }
+            }
+            // Second, if no vans in LARGE spots are found, check REGULAR spots
+            int consecutiveRegularSpots = 0;
+            for (int i = 1; i <= parkingLot.size(); i++) {
+                ParkingSpot parkingSpot = parkingLot.get(i);
+                if (parkingSpot.isFilled() && parkingSpot.parkingSpotType == ParkingSpotType.REGULAR && parkingSpot.getVehicleType() == vehicleType) {
+                    consecutiveRegularSpots++;
+                } else {
+                    consecutiveRegularSpots = 0;
+                }
+                if (consecutiveRegularSpots == 3) {
+                    parkingLot.get(i).emptySpot();
+                    parkingLot.get(i-1).emptySpot();
+                    parkingLot.get(i-2).emptySpot();
+                    regularSpots[0] -= 3;
+                    return vehicleType;
+                }
             }
         }
 
